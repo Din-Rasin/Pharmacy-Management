@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sidebar with Advanced 3D Animated Background</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body {
+        background: #1a1a2e;
+        overflow-x: hidden;
+      }
+
+      /* Sidebar Styling */
+      .sidenav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100vh;
+        z-index: 100;
+        transition: all 0.3s ease;
+      }
+
+      .card {
+        height: 100%;
+        position: relative;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(15px);
+        border: none;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+      }
+
+      /* Pulsing Gradient Overlay */
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 82, 82, 0.2),
+          rgba(66, 165, 245, 0.2)
+        );
+        z-index: -1;
+        opacity: 0.4;
+        animation: pulseGradient 8s ease-in-out infinite;
+      }
+
+      .card:hover::before {
+        opacity: 0.6;
+      }
+
+      /* 3D Animated Background for Sidebar */
+      #particle-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: transparent;
+      }
+
+      .card-body {
+        padding: 20px;
+        color: #eeeeee;
+        position: relative;
+        z-index: 1;
+      }
+
+      .logo {
+        text-align: center;
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .profile {
+        border-radius: 50%;
+        border: 3px solid #ff5252;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .profile:hover {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 0 20px rgba(255, 82, 82, 0.7);
+      }
+
+      .logo-caption {
+        font-size: 1.5em;
+        margin-top: 10px;
+        color: #ffffff;
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        animation: glowText 3s ease-in-out infinite;
+      }
+
+      .tweak {
+        color: #ff5252;
+        font-weight: bold;
+      }
+
+      .main-menu-item {
+        margin: 10px 0;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .main-menu-item::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 82, 82, 0.3),
+          transparent
+        );
+        transition: left 0.4s ease;
+      }
+
+      .main-menu-item:hover::after {
+        left: 100%;
+      }
+
+      .main-menu-item:hover {
+        background: rgba(255, 82, 82, 0.15);
+        transform: translateX(8px);
+      }
+
+      .main-menu-item a {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        color: #eeeeee;
+        text-decoration: none;
+        font-size: 1em;
+      }
+
+      .main-menu-item a i {
+        margin-right: 10px;
+        font-size: 1.2em;
+        transition: transform 0.3s ease, color 0.3s ease;
+      }
+
+      .main-menu-item a:hover i {
+        color: #ff5252;
+        transform: scale(1.2);
+      }
+
+      .pull-right-container {
+        margin-left: auto;
+      }
+
+      .fa-angle-left {
+        transition: transform 0.3s ease;
+      }
+
+      .treeview-menu {
+        list-style: none;
+        padding-left: 20px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 5px;
+        margin: 5px 0;
+        animation: slideDown 0.4s ease;
+      }
+
+      .treeview-menu li a {
+        padding: 8px 10px;
+        font-size: 0.9em;
+        color: #cccccc;
+        display: block;
+        transition: all 0.3s ease;
+      }
+
+      .treeview-menu li a:hover {
+        color: #ff5252;
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateX(8px);
+      }
+
+      /* Keyframes */
+      @keyframes pulseGradient {
+        0% {
+          opacity: 0.4;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.6;
+          transform: scale(1.05);
+        }
+        100% {
+          opacity: 0.4;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes glowText {
+        0% {
+          text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+        50% {
+          text-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+        }
+        100% {
+          text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidenav">
+      <div class="card">
+        <canvas id="particle-canvas"></canvas>
+        <div class="card-body">
+          <div class="logo">
+            <!-- <img
+              src="../images/profile.jpg"
+              width="120"
+              height="120"
+              class="profile"
+            /> -->
+            <h1 class="logo-caption"><span class="#">A</span>dmin</h1>
+          </div>
+
+          <div class="main-menu-item">
+            <a href="home.php"
+              ><i class="fa fa-dashboard"></i><span>Dashboard</span></a
+            >
+          </div>
+
+          <div id="first" class="main-menu-item" onclick="showhide(this.id);">
+            <a href="#">
+              <i class="fa fa-balance-scale"></i><span>Invoice</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu" style="display: none">
+              <li class="treeview">
+                <a href="new_invoice.php">New Invoice</a>
+              </li>
+              <li class="treeview">
+                <a href="manage_invoice.php">Manage Invoice</a>
+              </li>
+            </ul>
+          </div>
+
+          <div id="second" class="main-menu-item" onclick="showhide(this.id);">
+            <a href="#">
+              <i class="fa fa-handshake"></i><span>Customer</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu" style="display: none">
+              <li class="treeview">
+                <a href="add_customer.php">Add Customer</a>
+              </li>
+              <li class="treeview">
+                <a href="manage_customer.php">Manage Customer</a>
+              </li>
+            </ul>
+          </div>
+
+          <div id="third" class="main-menu-item" onclick="showhide(this.id);">
+            <a href="#">
+              <i class="fa fa-shopping-bag"></i><span>Medicine</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu" style="display: none">
+              <li class="treeview">
+                <a href="add_medicine.php">Add Medicine</a>
+              </li>
+              <li class="treeview">
+                <a href="manage_medicine.php">Manage Medicine</a>
+              </li>
+              <li class="treeview">
+                <a href="manage_medicine_stock.php">Manage Medicine Stock</a>
+              </li>
+            </ul>
+          </div>
+
+          <div id="fourth" class="main-menu-item" onclick="showhide(this.id);">
+            <a href="#">
+              <i class="fa fa-group"></i><span>Supplier</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu" style="display: none">
+              <li class="treeview">
+                <a href="add_supplier.php">Add Supplier</a>
+              </li>
+              <li class="treeview">
+                <a href="manage_supplier.php">Manage Supplier</a>
+              </li>
+            </ul>
+          </div>
+
+          <div id="fifth" class="main-menu-item" onclick="showhide(this.id);">
+            <a href="#">
+              <i class="fa fa-bar-chart"></i><span>Purchase</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu" style="display: none">
+              <li class="treeview">
+                <a href="add_purchase.php">Add Purchase</a>
+              </li>
+              <li class="treeview">
+                <a href="manage_purchase.php">Manage Purchase</a>
+              </li>
+            </ul>
+          </div>
+
+          <div id="sixth" class="main-menu-item" onclick="showhide(this.id);">
+            <a href="#">
+              <i class="fa fa-book"></i><span>Report</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu" style="display: none">
+              <li class="treeview">
+                <a href="sales_report.php">Sales Report</a>
+              </li>
+              <li class="treeview">
+                <a href="purchase_report.php">Purchase Report</a>
+              </li>
+            </ul>
+          </div>
+
+          <div id="seventh" class="main-menu-item" onclick="showhide(this.id);">
+            <a href="#">
+              <i class="fa fa-search"></i><span>Search</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu" style="display: none">
+              <li class="treeview"><a href="manage_invoice.php">Invoice</a></li>
+              <li class="treeview">
+                <a href="manage_customer.php">Customer</a>
+              </li>
+              <li class="treeview">
+                <a href="manage_medicine.php">Medicine</a>
+              </li>
+              <li class="treeview">
+                <a href="manage_supplier.php">Supplier</a>
+              </li>
+              <li class="treeview">
+                <a href="manage_purchase.php">Purchase</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var pid = "none";
+      function showhide(id) {
+        var elements = document.getElementById(id).childNodes;
+        var menu = elements[3];
+        var arrow = elements[1].childNodes[4].childNodes[1];
+        if (menu.style.display == "block") {
+          menu.style.display = "none";
+          arrow.style.transform = "rotate(0deg)";
+          elements[1].style.color = "#eeeeee";
+        } else {
+          menu.style.display = "block";
+          arrow.style.transform = "rotate(270deg)";
+          elements[1].style.color = "#ff5252";
+        }
+        if (pid == id) pid = "none";
+        if (pid != "none") {
+          elements = document.getElementById(pid).childNodes;
+          menu = document.getElementById(pid).childNodes[3];
+          arrow = elements[1].childNodes[4].childNodes[1];
+          if (menu.style.display == "block") {
+            menu.style.display = "none";
+            arrow.style.transform = "rotate(0deg)";
+            elements[1].style.color = "#eeeeee";
+          }
+        }
+        pid = id;
+      }
+
+      function showOptions() {
+        var flag = document.getElementById("options");
+        if (flag.style.display == "block") {
+          flag.style.display = "none";
+          document.getElementById("mark").style.display = "none";
+        } else {
+          flag.style.display = "block";
+          document.getElementById("mark").style.display = "block";
+        }
+      }
+
+      // Advanced 3D Particle Background Animation with Parallax and Connections
+      const canvas = document.getElementById("particle-canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = 250;
+      canvas.height = window.innerHeight;
+
+      let particlesArray = [];
+      const numberOfParticles = 70;
+      let mouse = { x: null, y: null };
+      let tilt = { x: 0, y: 0 };
+
+      class Particle {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.z = Math.random() * 1000;
+          this.size = Math.random() * 1.8 + 0.5;
+          this.speedZ = Math.random() * 0.7 + 0.2;
+          this.color = `hsl(${Math.random() * 60 + 340}, 80%, 65%)`;
+          this.baseX = this.x;
+          this.baseY = this.y;
+        }
+
+        update() {
+          this.z -= this.speedZ;
+          if (this.z < 1) {
+            this.z = 1000;
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.baseX = this.x;
+            this.baseY = this.y;
+          }
+
+          // Parallax effect
+          const perspective = 1000 / (1000 - this.z);
+          this.x = this.baseX + tilt.x * (this.z / 1000) * 20;
+          this.y = this.baseY + tilt.y * (this.z / 1000) * 20;
+
+          // Mouse interaction
+          if (mouse.x && mouse.y) {
+            const dx = mouse.x - this.x;
+            const dy = mouse.y - this.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < 80) {
+              this.x += dx * 0.03;
+              this.y += dy * 0.03;
+            }
+          }
+        }
+
+        draw() {
+          const perspective = 1000 / (1000 - this.z);
+          const px =
+            (this.x - canvas.width / 2) * perspective + canvas.width / 2;
+          const py =
+            (this.y - canvas.height / 2) * perspective + canvas.height / 2;
+          const size = this.size * perspective;
+
+          ctx.beginPath();
+          ctx.arc(px, py, size, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.shadowBlur = 12;
+          ctx.shadowColor = this.color;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+      }
+
+      function init() {
+        particlesArray = [];
+        for (let i = 0; i < numberOfParticles; i++) {
+          particlesArray.push(new Particle());
+        }
+      }
+
+      function connectParticles() {
+        for (let i = 0; i < particlesArray.length; i++) {
+          for (let j = i + 1; j < particlesArray.length; j++) {
+            const perspectiveI = 1000 / (1000 - particlesArray[i].z);
+            const perspectiveJ = 1000 / (1000 - particlesArray[j].z);
+            const pxI =
+              (particlesArray[i].x - canvas.width / 2) * perspectiveI +
+              canvas.width / 2;
+            const pyI =
+              (particlesArray[i].y - canvas.height / 2) * perspectiveI +
+              canvas.height / 2;
+            const pxJ =
+              (particlesArray[j].x - canvas.width / 2) * perspectiveJ +
+              canvas.width / 2;
+            const pyJ =
+              (particlesArray[j].y - canvas.height / 2) * perspectiveJ +
+              canvas.height / 2;
+
+            const dx = pxI - pxJ;
+            const dy = pyI - pyJ;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 80) {
+              ctx.strokeStyle = `rgba(255, 82, 82, ${1 - distance / 80})`;
+              ctx.lineWidth = 0.5;
+              ctx.beginPath();
+              ctx.moveTo(pxI, pyI);
+              ctx.lineTo(pxJ, pyJ);
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particlesArray.forEach((particle) => {
+          particle.update();
+          particle.draw();
+        });
+        connectParticles();
+        requestAnimationFrame(animate);
+      }
+
+      init();
+      animate();
+
+      // Mouse and tilt interactions
+      canvas.addEventListener("mousemove", (event) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = event.clientX - rect.left;
+        mouse.y = event.clientY - rect.top;
+        tilt.x = (mouse.x - canvas.width / 2) / canvas.width;
+        tilt.y = (mouse.y - canvas.height / 2) / canvas.height;
+      });
+
+      canvas.addEventListener("mouseleave", () => {
+        mouse.x = null;
+        mouse.y = null;
+        tilt.x = 0;
+        tilt.y = 0;
+      });
+
+      window.addEventListener("resize", () => {
+        canvas.height = window.innerHeight;
+        init();
+      });
+    </script>
+  </body>
+</html>
