@@ -1,77 +1,3 @@
-
----
-
-````markdown
-## 💊 Pharmacy Management System
-
-The **Pharmacy Management System** is a user-friendly application built to manage pharmacy operations efficiently. It handles key features like inventory tracking, billing, medicine records, supplier information, and sales reporting. Designed for pharmacies aiming to digitize and streamline their workflow.
-
----
-
-### 🌟 Key Features
-
-* 📦 **Medicine Inventory Management**  
-  Add, update, and monitor available stock levels with expiry date alerts.
-
-* 🧾 **Billing and Invoicing**  
-  Quick and accurate bill generation with print-ready receipts.
-
-* 🧪 **Medicine Details**  
-  Store brand, generic name, batch number, price, quantity, expiry date, and category.
-
-* 🧍 **Customer & Supplier Records**  
-  Save customer purchase history and manage supplier profiles.
-
-* 📊 **Sales Reports & Analytics**  
-  View daily, weekly, and monthly sales statistics.
-
-* 🔐 **Role-Based Login**  
-  Admin and cashier roles with secured access.
-
-* 📁 **Backup & Restore Data**  
-  Export/import data to ensure secure data retention.
-
----
-
-### 📦 Installation Guide
-
-1. **Clone the Repository**
-
-   ```bash
-   git clone https://github.com/Din-Rasin/Pharmacy-Management.git
-````
-
-2. **Set Up the Database**
-   Import the provided `.sql` file into MySQL using phpMyAdmin.
-
-3. **Configure Settings**
-   Update database settings in `config.php`.
-
-4. **Run the App**
-   Use XAMPP/WAMP or Visual Studio if it's a C# version.
-
----
-
-### 👤 User Roles
-
-| Role    | Permissions                                    |
-| ------- | ---------------------------------------------- |
-| Admin   | Full Access – Manage medicines, users, reports |
-| Cashier | Limited Access – Billing and viewing stocks    |
-
----
-
-### 🧩 Modules Breakdown
-
-* ✅ Dashboard (Sales, Stock, Alerts)
-* 💊 Medicine CRUD (Add, Edit, Delete, View)
-* 📦 Stock Monitoring (Low stock, Expiry alerts)
-* 🧾 POS/Billing System
-* 📇 Customer and Supplier Profiles
-* 📈 Reports (Sales, Inventory)
-
----
-
 ### 📸 Demo Preview
 
 📂 You can **download demo screenshots** of the project below:
@@ -153,6 +79,80 @@ The **Pharmacy Management System** is a user-friendly application built to manag
 </p>
 
 ---
+
+---
+
+````markdown
+## 💊 Pharmacy Management System
+
+The **Pharmacy Management System** is a user-friendly application built to manage pharmacy operations efficiently. It handles key features like inventory tracking, billing, medicine records, supplier information, and sales reporting. Designed for pharmacies aiming to digitize and streamline their workflow.
+
+---
+
+### 🌟 Key Features
+
+* 📦 **Medicine Inventory Management**  
+  Add, update, and monitor available stock levels with expiry date alerts.
+
+* 🧾 **Billing and Invoicing**  
+  Quick and accurate bill generation with print-ready receipts.
+
+* 🧪 **Medicine Details**  
+  Store brand, generic name, batch number, price, quantity, expiry date, and category.
+
+* 🧍 **Customer & Supplier Records**  
+  Save customer purchase history and manage supplier profiles.
+
+* 📊 **Sales Reports & Analytics**  
+  View daily, weekly, and monthly sales statistics.
+
+* 🔐 **Role-Based Login**  
+  Admin and cashier roles with secured access.
+
+* 📁 **Backup & Restore Data**  
+  Export/import data to ensure secure data retention.
+
+---
+
+### 📦 Installation Guide
+
+1. **Clone the Repository**
+
+   ```bash
+   git clone https://github.com/Din-Rasin/Pharmacy-Management.git
+````
+
+2. **Set Up the Database**
+   Import the provided `.sql` file into MySQL using phpMyAdmin.
+
+3. **Configure Settings**
+   Update database settings in `config.php`.
+
+4. **Run the App**
+   Use XAMPP/WAMP or Visual Studio if it's a C# version.
+
+---
+
+### 👤 User Roles
+
+| Role    | Permissions                                    |
+| ------- | ---------------------------------------------- |
+| Admin   | Full Access – Manage medicines, users, reports |
+| Cashier | Limited Access – Billing and viewing stocks    |
+
+---
+
+### 🧩 Modules Breakdown
+
+* ✅ Dashboard (Sales, Stock, Alerts)
+* 💊 Medicine CRUD (Add, Edit, Delete, View)
+* 📦 Stock Monitoring (Low stock, Expiry alerts)
+* 🧾 POS/Billing System
+* 📇 Customer and Supplier Profiles
+* 📈 Reports (Sales, Inventory)
+
+---
+
 
 ### 🤝 Contributions
 
